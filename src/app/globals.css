@@ -163,3 +163,35 @@ body{background:var(--canvas);color:var(--ink);font-family:Inter,ui-sans-serif,s
 .branch-picker select{max-width:100%;overflow:hidden;text-overflow:ellipsis}
 @media(max-width:1100px){.workspace-main{width:calc(100% - 238px);margin-left:238px}.module-work-grid,.patient-work-grid{grid-template-columns:minmax(0,1fr)}}
 @media(max-width:760px){.workspace-main{width:100%;margin-left:0;padding-top:58px}.module-content{padding-left:17px;padding-right:17px}}
+
+/* Sidebar typography colour system */
+.sidebar-brand strong{color:#245b91}
+.sidebar-brand small{color:#8a69b4}
+.sidebar-branch .branch-avatar{background:#e9f2ff;color:#2869ae}
+.sidebar-branch strong{color:#276b9e}
+.sidebar-branch small{color:#8a6db3}
+.sidebar-branch .branch-chevron{color:#279b8b}
+.sidebar-caption{color:#3976ae}
+.modules-caption{color:#8a68b5}
+.sidebar-link{color:#536d8b}
+.sidebar-link .side-icon{color:#6684a7}
+.sidebar-link.menu-overview{color:#2869a8}.sidebar-link.menu-overview .side-icon{color:#397fbd}
+.sidebar-link.menu-patients{color:#278779}.sidebar-link.menu-patients .side-icon{color:#2a9b88}
+.sidebar-link.menu-calendar{color:#775eb1}.sidebar-link.menu-calendar .side-icon{color:#8a70c5}
+.sidebar-link.menu-doctor{color:#2c81a0}.sidebar-link.menu-doctor .side-icon{color:#329bb5}
+.sidebar-link.menu-pharmacy{color:#b07835}.sidebar-link.menu-pharmacy .side-icon{color:#c18a43}
+.sidebar-link.menu-inventory{color:#648b42}.sidebar-link.menu-inventory .side-icon{color:#7aa852}
+.sidebar-link.menu-lab{color:#3f82a8}.sidebar-link.menu-lab .side-icon{color:#559fc1}
+.sidebar-link.menu-orders{color:#b46c4e}.sidebar-link.menu-orders .side-icon{color:#cb8463}
+.sidebar-link.menu-support{color:#a35d8e}.sidebar-link.menu-support .side-icon{color:#bd75a6}
+.sidebar-link.menu-branches{color:#5978aa}.sidebar-link.menu-branches .side-icon{color:#7898c8}
+.sidebar-link.menu-staff{color:#6f72a9}.sidebar-link.menu-staff .side-icon{color:#8b8dc4}
+.sidebar-link.menu-reports{color:#3f8b79}.sidebar-link.menu-reports .side-icon{color:#55a890}
+.sidebar-link.selected{background:#edf4fb;color:#205b98}
+.sidebar-link.selected .side-icon{color:#286eae}
+.sidebar-link.disabled-link{opacity:.88}
+.sidebar-link.disabled-link:hover{background:transparent}
+.sidebar-secure strong{color:#32835a}
+.sidebar-secure small{color:#6e9b7d}
+.sidebar-version{color:#6685a7}
+.sidebar-version span{color:#a27ac5}
