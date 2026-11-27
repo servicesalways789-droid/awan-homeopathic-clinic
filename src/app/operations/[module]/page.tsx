@@ -68,7 +68,13 @@ export default function OperationsPage(){
    } else if(module==="lab"){table="lab_orders";payload={...payload,patient_id:form.patient_id,test_name:form.test_name.trim()};}
    else if(module==="orders"){table="website_orders";payload={...payload,customer_name:form.customer_name.trim(),customer_phone:form.customer_phone.trim(),delivery_address:form.delivery_address||null,items:form.items.split("\n").filter(Boolean).map(x=>({item:x.trim()})),total:Number(form.total||0),notes:form.notes||null};}
    else if(module==="support"){table="support_requests";payload={...payload,patient_id:form.patient_id||null,customer_name:form.customer_name.trim(),phone:form.phone.trim(),request_type:form.request_type||"appointment",notes:form.notes||null};}
-   else if(module==="doctor"){
+   else if(module==="staff"){
+    const {data:invite,error:inviteError}=await supabase.functions.invoke("invite-clinic-staff",{body:{email:form.email,full_name:form.full_name,role:form.role,branch_id:branchId}});
+    if(inviteError)throw inviteError;
+    if(invite?.error)throw new Error(invite.error);
+    setNotice("Invitation sent to "+form.email+". The staff member must accept the email invitation to set a password.");
+    setForm({});await loadData(branchId);return;
+   } else if(module==="doctor"){
     const {data:{user}}=await supabase.auth.getUser();if(!user)throw new Error("Please sign in again.");
     const {data:rx,error:re}=await supabase.from("prescriptions").insert({branch_id:branchId,patient_id:form.patient_id,doctor_user_id:user.id,appointment_id:form.appointment_id||null,clinical_notes:form.clinical_notes||null,status:"sent_to_pharmacy"}).select("id").single();if(re)throw re;
     const items=form.medicines.split("\n").map(x=>x.trim()).filter(Boolean).map(line=>{const [medicine_name,dosage,frequency,duration,quantity]=line.split("|").map(v=>v?.trim());return {prescription_id:rx.id,medicine_name,dosage:dosage||null,frequency:frequency||null,duration:duration||null,quantity:quantity?Number(quantity):1};});
@@ -110,7 +116,7 @@ export default function OperationsPage(){
  {module==="doctor"&&<form className="patient-form" onSubmit={submit}><label className="field-label full-field">Patient<select required value={form.patient_id||""} onChange={e=>setForm({...form,patient_id:e.target.value})}><option value="">Select patient…</option>{patientOptions.map(p=><option key={p.id} value={p.id}>{p.full_name}{p.phone?" · "+p.phone:""}</option>)}</select></label>{field("appointment_id","Appointment ID (optional)","text",false)}<label className="field-label full-field">Clinical notes<textarea rows={3} value={form.clinical_notes||""} onChange={e=>setForm({...form,clinical_notes:e.target.value})}/></label><label className="field-label full-field">Medicines (one per line: name | dosage | frequency | duration | quantity)<textarea required rows={5} value={form.medicines||""} onChange={e=>setForm({...form,medicines:e.target.value})}/></label><button className="btn" disabled={saving}>Send prescription to pharmacy</button></form>}
  {module==="pharmacy"&&<p className="muted">Open a prescription in the queue and create its bill. Prescription details are already entered by the doctor.</p>}
  {module==="branches"&&<p className="muted">All registered clinic locations are shown on the right.</p>}
- {module==="staff"&&<p className="muted">Staff access is controlled by role and assigned branch. Create authentication accounts through the secured owner setup process; never share staff passwords.</p>}
+ {module==="staff"&&<form className="patient-form" onSubmit={submit}>{field("full_name","Staff full name")}{field("email","Staff email","email")}{select("role","Role",profile?.role==="general_manager"?["doctor","pharmacist","reception","customer_support","order_staff","lab_staff"]:["general_manager","doctor","pharmacist","reception","customer_support","order_staff","lab_staff"])}<p className="muted full-field">Invitation will be emailed to the staff member. They set their own password. Branch assignment: {branches.find(b=>b.id===branchId)?.address||"Select a branch above"}.</p><button className="btn" disabled={saving}>{saving?"Sending invitation…":"Invite staff member"}</button></form>}
  {module==="reports"&&<p className="muted">Summary totals for the selected branch.</p>}
  </section>
  <section className="card"><h2>{module==="pharmacy"?"Prescription queue":module==="inventory"?"Medicine stock":module==="lab"?"Lab orders":module==="orders"?"Website orders":module==="support"?"Support requests":module==="doctor"?"Appointments":module==="branches"?"Clinic locations":module==="staff"?"Registered staff":"Branch performance"}</h2>
