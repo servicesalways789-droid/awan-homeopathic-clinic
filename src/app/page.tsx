@@ -1,40 +1,30 @@
+import Link from "next/link";
 import AppNav from "@/components/AppNav";
 
-const modules = [
-  ["Patient Records","Registration, patient profiles and branch-wise history","patients","/patients","active"],
-  ["Appointments","Bookings, doctor assignment and visit status","appointments","/appointments","active"],
-  ["Consultations & Prescriptions","Clinical notes and digital prescriptions","consultations","","planned"],
-  ["Pharmacy & Billing","Dispensing, invoices and payment tracking","pharmacy","","planned"],
-  ["Laboratory","Test requests, samples and results","lab","","planned"],
-  ["Medicine Inventory","Stock levels, transfers and expiry monitoring","inventory","","planned"],
-  ["Online Orders","Website orders and fulfilment workflow","orders","","planned"],
-  ["Customer Support","Appointment enquiries and follow-up requests","support","","planned"],
-  ["Staff & Permissions","Team members, roles and branch access","staff","","planned"],
-  ["Reports & Analytics","Branch performance, revenue and activity","reports","","planned"],
-  ["Branch Management","Clinic locations and operating details","branches","","planned"]
+const shortcuts = [
+  { title:"Register a patient", description:"Create a patient profile and keep their clinic record organised.", href:"/patients", action:"Add new patient", icon:"＋", tone:"blue" },
+  { title:"Manage appointments", description:"Schedule visits, assign doctors and update appointment status.", href:"/appointments", action:"View appointments", icon:"▦", tone:"violet" },
 ];
-
+const planned = [
+  ["Doctor Workspace","Consultations and digital prescriptions","01"],
+  ["Pharmacy & Billing","Dispensing, invoices and payments","02"],
+  ["Medicine Inventory","Stock levels, expiry and movements","03"],
+  ["Laboratory","Test requests and result tracking","04"],
+  ["Online Orders","Website orders and fulfilment","05"],
+  ["Customer Support","Appointment enquiries and follow-ups","06"],
+  ["Branch Management","Clinic locations and operations","07"],
+  ["Staff & Permissions","Team access and role management","08"],
+  ["Reports & Analytics","Business and branch performance","09"],
+];
 export default function Home() {
-  return <>
-    <AppNav />
-    <main className="shell dashboard-shell">
-      <header className="dashboard-heading">
-        <div><div className="eyebrow">CLINIC MANAGEMENT WORKSPACE</div><h1>Good day, Clinic Owner</h1><p className="muted">Manage your branches and daily clinic operations from one place.</p></div>
-        <div className="heading-meta"><span className="live-pill"><i/> System workspace</span><span className="currency-chip">PKR · Pakistan</span></div>
-      </header>
-      <section className="welcome-panel">
-        <div><span className="panel-kicker">AWAN HOMEOPATHIC CLINIC</span><h2>Everything in one workspace.</h2><p>Use the navigation tabs to move between your active clinic workflows.</p></div>
-        <div className="welcome-symbol">HC</div>
-      </section>
-      <section className="section" id="modules">
-        <div className="section-heading"><div><h2>Clinic modules</h2><p className="muted">Access your operational areas</p></div><span className="module-count">11 MODULES</span></div>
-        <div className="modules">{modules.map(([name,desc,slug,href,status],index)=><div className={`module-card ${status === "active" ? "module-ready" : "module-planned"}`} key={slug}>
-          <div className="module-card-top"><span className="module-index">{String(index+1).padStart(2,"0")}</span><span className={status === "active" ? "module-state ready" : "module-state"}>{status === "active" ? "Available" : "Coming soon"}</span></div>
-          <h3>{name}</h3><p>{desc}</p>
-          {status === "active" ? <a className="module-action" href={href}>Open module <span>→</span></a> : <span className="module-disabled">Module not yet available</span>}
-        </div>)}</div>
-      </section>
-      <footer className="dashboard-footer"><span>Awan Homeopathic Clinic</span><span>Internal staff access only · All amounts in PKR</span></footer>
-    </main>
-  </>;
+ return <><AppNav/><div className="workspace-main">
+  <header className="workspace-topbar"><div className="breadcrumb">Workspace <span>/</span> <strong>Overview</strong></div><div className="topbar-right"><span className="topbar-status"><i/> System workspace</span><span className="topbar-divider"/><span className="topbar-currency">PKR</span><span className="topbar-user">CO</span></div></header>
+  <main className="dashboard-content">
+   <section className="welcome-heading"><div><div className="page-eyebrow">AWAN HOMEOPATHIC CLINIC</div><h1>Clinic overview</h1><p>Your central workspace for managing daily clinic operations.</p></div><div className="today-chip"><span className="today-icon">◷</span><span><strong>Pakistan Standard Time</strong><small>PKR · Pakistan</small></span></div></section>
+   <section className="hero-workspace"><div className="hero-copy"><span className="hero-label">WELCOME TO YOUR WORKSPACE</span><h2>Everything your clinic needs,<br/>in one organised place.</h2><p>Manage patient records and appointments across your clinic branches.</p><div className="hero-actions"><Link href="/patients" className="hero-primary">Register a patient <span>→</span></Link><Link href="/appointments" className="hero-secondary">Open appointments</Link></div></div><div className="hero-art" aria-hidden="true"><div className="hero-orbit orbit-one"/><div className="hero-orbit orbit-two"/><div className="hero-cross">+</div><div className="hero-art-card"><span>HC</span><small>CLINIC CARE</small></div></div></section>
+   <section className="dashboard-section"><div className="dashboard-section-head"><div><h2>Quick actions</h2><p>Common tasks to get your day started</p></div><span className="section-count">02 AVAILABLE</span></div><div className="quick-action-grid">{shortcuts.map(item=><Link href={item.href} key={item.title} className="quick-action-card"><span className={`quick-action-icon ${item.tone}`}>{item.icon}</span><span className="quick-action-copy"><strong>{item.title}</strong><small>{item.description}</small><em>{item.action} <b>→</b></em></span><span className="quick-card-arrow">↗</span></Link>)}</div></section>
+   <section className="dashboard-section modules-section"><div className="dashboard-section-head"><div><h2>Clinic modules</h2><p>All departments in one workspace</p></div><span className="section-count">11 MODULES</span></div><div className="module-directory">{planned.map(([name,desc,num])=><div className="directory-item" key={name}><span className="directory-number">{num}</span><span className="directory-copy"><strong>{name}</strong><small>{desc}</small></span><span className="directory-status">In setup</span></div>)}</div><p className="module-note">Additional modules will become available as their workflows are completed and tested.</p></section>
+   <footer className="workspace-footer"><span>© Awan Homeopathic Clinic</span><span>Private staff workspace <i/> Secure access</span></footer>
+  </main>
+ </div></>;
 }
