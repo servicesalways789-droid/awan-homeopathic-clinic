@@ -134,5 +134,5 @@ export default function OperationsPage(){
  :<table className="data-table"><thead><tr><th>Metric</th><th>Value</th></tr></thead><tbody>{rows.map(r=><tr key={r.label}><td>{r.label}</td><td>{r.label==="Invoice revenue"?money(r.value):r.value}</td></tr>)}</tbody></table>}
  </div>}
  </section></div>}
- </main>;
+ </main></>;
 }
