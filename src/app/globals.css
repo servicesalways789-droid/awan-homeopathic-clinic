@@ -195,3 +195,33 @@ body{background:var(--canvas);color:var(--ink);font-family:Inter,ui-sans-serif,s
 .sidebar-secure small{color:#6e9b7d}
 .sidebar-version{color:#6685a7}
 .sidebar-version span{color:#a27ac5}
+
+/* Subtle interface motion — restrained and accessible */
+@keyframes hcFadeUp{from{opacity:0;transform:translate3d(0,12px,0)}to{opacity:1;transform:translate3d(0,0,0)}}
+@keyframes hcRailIn{from{transform:scaleY(.25);opacity:0}to{transform:scaleY(1);opacity:1}}
+@keyframes hcLogoGlow{0%,100%{box-shadow:0 5px 14px rgba(35,91,145,.16)}50%{box-shadow:0 7px 22px rgba(46,133,181,.3)}}
+@keyframes hcSoftPulse{0%,100%{opacity:.65;transform:scale(.92)}50%{opacity:1;transform:scale(1.08)}}
+.clinic-sidebar{animation:hcFadeUp .48s cubic-bezier(.2,.7,.2,1) both}
+.sidebar-logo{animation:hcLogoGlow 5s ease-in-out infinite}
+.sidebar-links .sidebar-link{transition:background .22s ease,color .22s ease,transform .22s ease,box-shadow .22s ease}
+.sidebar-links .sidebar-link:hover:not(.disabled-link){transform:translateX(4px);box-shadow:0 4px 12px rgba(42,91,145,.07)}
+.sidebar-link .side-icon{transition:transform .25s ease,color .22s ease}
+.sidebar-link:hover .side-icon{transform:scale(1.12) rotate(-4deg)}
+.sidebar-link .active-rail{transform-origin:center;animation:hcRailIn .28s ease-out both}
+.soon-dot{animation:hcSoftPulse 3s ease-in-out infinite}
+.module-page-heading{animation:hcFadeUp .42s .04s ease both}
+.patient-toolbar{animation:hcFadeUp .44s .08s ease both}
+.module-panel{animation:hcFadeUp .5s cubic-bezier(.2,.7,.2,1) both;transition:transform .24s ease,box-shadow .24s ease,border-color .24s ease}
+.module-panel:nth-child(2){animation-delay:.1s}
+.module-panel:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(31,64,101,.07);border-color:#d9e4f0}
+.btn{transition:transform .18s ease,box-shadow .18s ease,filter .18s ease}
+.btn:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 7px 16px rgba(35,91,145,.2);filter:saturate(1.08)}
+.btn:active:not(:disabled){transform:translateY(0) scale(.985)}
+.branch-picker select,.search-control,.patient-form input,.patient-form select,.patient-form textarea{transition:border-color .2s ease,box-shadow .2s ease}
+.branch-picker select:focus,.search-control:focus-within,.patient-form input:focus,.patient-form select:focus,.patient-form textarea:focus{border-color:#83acd4;box-shadow:0 0 0 3px rgba(69,132,190,.11);outline:0}
+.data-table tbody tr{transition:background .18s ease}
+.data-table tbody tr:hover{background:#f7faff}
+@media(prefers-reduced-motion:reduce){
+ *,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+ .module-panel:hover,.sidebar-links .sidebar-link:hover:not(.disabled-link){transform:none}
+}
