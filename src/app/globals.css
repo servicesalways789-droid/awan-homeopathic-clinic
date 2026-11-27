@@ -122,3 +122,31 @@ body{background:var(--canvas);color:var(--ink);font-family:Inter,ui-sans-serif,s
 @media(max-width:1100px){.clinic-sidebar{width:238px}.workspace-main{margin-left:238px}.dashboard-content{padding:30px 26px}.workspace-topbar{padding:0 26px}.module-directory{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:760px){.clinic-sidebar{transform:translateX(-100%);transition:transform .22s ease;width:275px;box-shadow:10px 0 30px #122a441c}.clinic-sidebar.sidebar-open{transform:translateX(0)}.workspace-main{margin-left:0;padding-top:58px}.mobile-sidebar-bar{height:58px;position:fixed;z-index:55;inset:0 0 auto;display:flex;align-items:center;gap:12px;padding:0 17px;background:#fff;border-bottom:1px solid #e7ecf2}.mobile-sidebar-bar button{width:34px;height:34px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;border:1px solid #e3eaf1;background:#fff;border-radius:7px}.mobile-sidebar-bar button span{width:15px;height:1.5px;background:#36536f}.mobile-sidebar-bar strong{font-size:13px;color:#1c3858}.mobile-bar-tag{margin-left:auto;font-size:8px;font-weight:800;letter-spacing:.8px;color:#52769a;background:#f0f5fa;padding:6px 8px;border-radius:5px}.sidebar-scrim{display:block;position:fixed;inset:58px 0 0;z-index:58;background:#10263d55;border:0}.workspace-topbar{height:53px;padding:0 18px}.dashboard-content{padding:24px 18px}.hero-art{right:1%;opacity:.55}.welcome-heading h1{font-size:24px}}
 @media(max-width:520px){.welcome-heading{align-items:flex-start;flex-direction:column}.today-chip{align-self:flex-start}.hero-workspace{padding:24px 22px;min-height:220px}.hero-workspace h2{font-size:21px}.hero-art{right:-40px;opacity:.28}.hero-actions{gap:13px}.quick-action-grid{grid-template-columns:1fr}.module-directory{grid-template-columns:1fr}.directory-status{font-size:8px}.workspace-footer{flex-direction:column}.topbar-status{display:none}.topbar-divider{display:none}}
+
+/* Consistent inner workspace layout for all operational pages */
+.module-content{max-width:1450px;margin:0 auto;padding:30px 38px 26px}
+.module-page-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:22px;margin-bottom:24px}
+.module-page-heading h1{font-size:27px;letter-spacing:-.7px;color:#1a2e46;margin:7px 0 5px}
+.module-page-heading p{font-size:12px;color:#8390a0;margin:0}
+.branch-picker{width:min(440px,48%);display:grid;grid-template-columns:1fr auto;gap:6px 10px;align-items:center}
+.branch-picker label{grid-column:1/-1;font-size:10px;font-weight:750;color:#738196}
+.branch-picker select{width:100%;min-width:0;height:40px;padding:0 11px;border:1px solid #dce4ed;border-radius:8px;background:#fff;color:#334b65;font-size:11px}
+.branch-color-tag{justify-self:end;font-size:9px;font-weight:800;padding:7px 9px;border-radius:6px;white-space:nowrap}
+.branch-color-tag.blue{background:#eaf2ff;color:#3169b2}.branch-color-tag.violet{background:#f1edff;color:#7358b5}.branch-color-tag.teal{background:#e7f7f4;color:#218779}
+.module-work-grid{display:grid;grid-template-columns:minmax(285px,370px) minmax(0,1fr);gap:18px;align-items:start}
+.module-panel{min-width:0;background:#fff;border:1px solid #e5ebf2;border-radius:13px;padding:21px;box-shadow:0 3px 12px rgba(21,43,69,.035)}
+.panel-heading{display:flex;align-items:center;gap:11px;margin-bottom:19px}
+.panel-icon{width:34px;height:34px;display:grid;place-items:center;border-radius:9px;font-size:18px;font-weight:700}
+.panel-icon.blue{background:#edf4ff;color:#3977bd}.panel-icon.violet{background:#f1efff;color:#7765b8}.panel-icon.teal{background:#e9f7f4;color:#2c9282}
+.panel-heading h2{font-size:14px;color:#2b4058;margin:0 0 4px}.panel-heading p{font-size:10px;color:#8b97a6;margin:0}
+.booking-panel .patient-form{grid-template-columns:1fr;gap:13px}.booking-panel .patient-form .field-label{font-size:11px}.booking-panel .patient-form input,.booking-panel .patient-form select,.booking-panel .patient-form textarea{width:100%;font-size:11px;padding:10px 11px;border-color:#dce4ed}.booking-panel .patient-form .btn{font-size:11px;padding:12px}
+.records-panel .empty-state{min-height:180px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;background:#f8fafc;border:1px dashed #e2e8f0;color:#8b97a6;font-size:11px}
+.empty-state strong{font-size:12px;color:#51647b}.empty-symbol{width:38px;height:38px;display:grid;place-items:center;border-radius:50%;background:#edf3fa;color:#5681ae;font-size:20px}
+.inline-hint{font-size:10px;color:#8795a5;margin:12px 0 0}
+.workspace-signout{border:1px solid #e2e8ef;background:#fff;border-radius:7px;padding:8px 11px;color:#64748b;font-size:10px;font-weight:650;cursor:pointer}.workspace-signout:hover{background:#f7f9fb;color:#315b87}
+.patient-toolbar{display:flex;align-items:center;gap:12px;margin:-5px 0 16px}.search-control{display:flex;align-items:center;gap:8px;width:min(440px,100%);height:38px;padding:0 11px;background:#fff;border:1px solid #e3e9f0;border-radius:8px;color:#8291a3}.search-control input{border:0;outline:0;width:100%;font-size:11px;color:#34465c}.record-count{font-size:10px;color:#8794a4}
+.patient-work-grid{grid-template-columns:minmax(285px,340px) minmax(0,1fr)}
+.status-select{text-transform:capitalize}.status-requested{background:#fff8e8;border-color:#f3dfb3;color:#956b18}.status-confirmed{background:#eaf7ef;border-color:#c8ead4;color:#28784a}.status-completed{background:#edf4ff;border-color:#d5e4fa;color:#356ca8}.status-cancelled,.status-no_show{background:#fff0f0;border-color:#f2d2d2;color:#a34d4d}
+@media(max-width:1050px){.module-work-grid,.patient-work-grid{grid-template-columns:1fr}.module-content{padding:25px 25px}.booking-panel{max-width:none}}
+@media(max-width:760px){.module-content{padding:22px 17px}.module-page-heading{align-items:stretch;flex-direction:column}.branch-picker{width:100%}.workspace-topbar{padding:0 17px}}
+@media(max-width:520px){.module-panel{padding:16px}.module-page-heading h1{font-size:23px}.patient-toolbar{align-items:stretch;flex-direction:column}.branch-picker{grid-template-columns:1fr}.branch-color-tag{justify-self:start}}
