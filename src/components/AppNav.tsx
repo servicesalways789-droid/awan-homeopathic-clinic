@@ -44,7 +44,7 @@ export default function AppNav() {
       <Link href="/" className="sidebar-brand" onClick={()=>setMobileOpen(false)}>
         <span className="sidebar-logo">HC</span><span><strong>Homeo Clinics</strong><small>MANAGEMENT SYSTEM</small></span>
       </Link>
-      <div className="sidebar-branch"><span className="branch-avatar">A</span><span><strong>Awan Homeopathic</strong><small>Clinic workspace</small></span><span className="branch-chevron">⌄</span></div>
+      <div className="sidebar-branch"><span className="branch-avatar">A</span><span><strong>Clinic locations</strong><small>3 registered branches</small></span><span className="branch-chevron">⌄</span></div>
       <div className="sidebar-caption">WORKSPACE</div>
       <nav className="sidebar-links" aria-label="Clinic workspace navigation">
         {links.slice(0,3).map(item=>{const active=item.href==="/" ? pathname==="/" : pathname.startsWith(item.href!);return <Link key={item.label} href={item.href!} className={`sidebar-link${active?" selected":""}`} aria-current={active?"page":undefined} onClick={()=>setMobileOpen(false)}><Icon name={item.icon}/><span>{item.label}</span>{active&&<i className="active-rail"/>}</Link>;})}
