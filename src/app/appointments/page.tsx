@@ -2,6 +2,7 @@
 import {FormEvent,useEffect,useMemo,useState} from "react";
 import {useRouter} from "next/navigation";
 import {createClient} from "@/lib/supabase/client";
+import AppNav from "@/components/AppNav";
 type Branch={id:string;name:string;address:string};
 type Patient={id:string;full_name:string;phone:string|null};
 type Doctor={user_id:string;full_name:string};
@@ -38,7 +39,7 @@ export default function AppointmentsPage(){
  async function signOut(){await supabase.auth.signOut();window.location.href="/login";}
  const patientMap=new Map(patients.map(p=>[p.id,p])),doctorMap=new Map(doctors.map(d=>[d.user_id,d]));
  const admin=role==="owner"||role==="admin";
- return <main className="shell"><header className="top"><div><a className="back-link" href="/">← Dashboard</a><h1>Appointments</h1><p className="muted">Branch bookings, doctor assignment and appointment status</p></div><button className="secondary-btn" onClick={signOut}>Sign out</button></header>
+ return <><AppNav/><main className="shell"><header className="top"><div><a className="back-link" href="/">← Dashboard</a><h1>Appointments</h1><p className="muted">Branch bookings, doctor assignment and appointment status</p></div><button className="secondary-btn" onClick={signOut}>Sign out</button></header>
  <div className="toolbar"><label className="field-label">Branch<select value={branchId} disabled={!admin} onChange={e=>changeBranch(e.target.value)}>{branches.map(b=><option key={b.id} value={b.id}>{b.name} — {b.address}</option>)}</select></label></div>
  {error&&<div className="error-box" role="alert">{error}</div>}{message&&<div className="success-box" role="status">{message}</div>}
  <div className="patient-layout"><section className="card"><h2>Book Appointment</h2><form className="patient-form" onSubmit={submit}>
@@ -47,5 +48,5 @@ export default function AppointmentsPage(){
  <label className="field-label full-field">Date and time *<input required type="datetime-local" value={form.scheduled_at} onChange={e=>setForm({...form,scheduled_at:e.target.value})}/></label>
  <label className="field-label full-field">Notes<textarea rows={3} value={form.notes} onChange={e=>setForm({...form,notes:e.target.value})}/></label>
  <button className="btn" disabled={saving||loading||!branchId||patients.length===0}>{saving?"Saving…":"Save Appointment"}</button></form>{patients.length===0&&!loading&&<p className="muted">Register a patient before booking.</p>}</section>
- <section className="card"><h2>Appointment Records</h2>{loading?<p className="muted">Loading…</p>:appointments.length===0?<p className="empty-state">No appointments for this branch yet.</p>:<div className="table-wrap"><table className="data-table"><thead><tr><th>Date / Time</th><th>Patient</th><th>Doctor</th><th>Status</th></tr></thead><tbody>{appointments.map(a=><tr key={a.id}><td>{new Date(a.scheduled_at).toLocaleString()}</td><td>{patientMap.get(a.patient_id)?.full_name||"Patient record"}</td><td>{a.doctor_user_id?doctorMap.get(a.doctor_user_id)?.full_name||"Assigned doctor":"Unassigned"}</td><td><select className="status-select" value={a.status} aria-label="Appointment status" onChange={e=>updateStatus(a.id,e.target.value)}>{statuses.map(s=><option key={s} value={s}>{s.replace("_"," ")}</option>)}</select></td></tr>)}</tbody></table></div>}</section></div></main>;
+ <section className="card"><h2>Appointment Records</h2>{loading?<p className="muted">Loading…</p>:appointments.length===0?<p className="empty-state">No appointments for this branch yet.</p>:<div className="table-wrap"><table className="data-table"><thead><tr><th>Date / Time</th><th>Patient</th><th>Doctor</th><th>Status</th></tr></thead><tbody>{appointments.map(a=><tr key={a.id}><td>{new Date(a.scheduled_at).toLocaleString()}</td><td>{patientMap.get(a.patient_id)?.full_name||"Patient record"}</td><td>{a.doctor_user_id?doctorMap.get(a.doctor_user_id)?.full_name||"Assigned doctor":"Unassigned"}</td><td><select className="status-select" value={a.status} aria-label="Appointment status" onChange={e=>updateStatus(a.id,e.target.value)}>{statuses.map(s=><option key={s} value={s}>{s.replace("_"," ")}</option>)}</select></td></tr>)}</tbody></table></div>}</section></div></main></>;
 }
