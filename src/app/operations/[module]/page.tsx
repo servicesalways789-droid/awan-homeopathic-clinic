@@ -88,6 +88,7 @@ export default function OperationsPage(){
   const total=Number(amount);if(!Number.isFinite(total)||total<0){setError("Enter a valid amount.");return;}
   setError("");try{
    const {data:inv,error:e}=await supabase.from("pharmacy_invoices").insert({branch_id:branchId,patient_id:rx.patient_id,prescription_id:rx.id,subtotal:total,total,discount:0,payment_status:"unpaid"}).select("id").single();if(e)throw e;
+   const {error:lineError}=await supabase.from("invoice_items").insert({invoice_id:inv.id,medicine_name:"Prescription medicines",quantity:1,unit_price:total,line_total:total});if(lineError)throw lineError;
    const {error:se}=await supabase.from("prescriptions").update({status:"dispensed"}).eq("id",rx.id);if(se)throw se;
    setNotice("Invoice "+inv.id.slice(0,8)+" created. Total: "+money(total));await loadData(branchId);
   }catch(e){setError(e instanceof Error?e.message:"Could not create invoice.");}
