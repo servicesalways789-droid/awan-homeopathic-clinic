@@ -2,6 +2,7 @@
 import { FormEvent, useEffect, useMemo, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
+import AppNav from "@/components/AppNav";
 
 type Branch={id:string;name:string;address:string};
 type Profile={role:string;branch_id:string|null;full_name?:string};
@@ -105,7 +106,7 @@ export default function OperationsPage(){
  const select=(name:string,label:string,options:string[],required=true)=><label className="field-label">{label}<select required={required} value={form[name]||""} onChange={e=>setForm({...form,[name]:e.target.value})}><option value="">Select…</option>{options.map(x=><option key={x} value={x}>{x.replaceAll("_"," ")}</option>)}</select></label>;
  const patientOptions=patients;
  const title=titles[module]||"Operations";
- return <main className="shell"><header className="top"><div><a className="back-link" href="/">← Dashboard</a><h1>{title}</h1><p className="muted">Awan Homeopathic Clinic · Branch operations · PKR</p></div><button className="secondary-btn" onClick={signOut}>Sign out</button></header>
+ return <><AppNav/><main className="shell"><header className="top"><div><a className="back-link" href="/">← Dashboard</a><h1>{title}</h1><p className="muted">Awan Homeopathic Clinic · Branch operations · PKR</p></div><button className="secondary-btn" onClick={signOut}>Sign out</button></header>
  <div className="toolbar"><label className="field-label">Branch<select value={branchId} disabled={!globalAdmin} onChange={e=>changeBranch(e.target.value)}>{branches.map(b=><option key={b.id} value={b.id}>{b.name} — {b.address}</option>)}</select></label></div>
  {error&&<div className="error-box" role="alert">{error}</div>}{notice&&<div className="success-box" role="status">{notice}</div>}
  {loading?<div className="card">Loading module…</div>:!canUse?<div className="warning">Your staff role does not have access to this module or branch. Contact the clinic owner.</div>:<div className="patient-layout">
