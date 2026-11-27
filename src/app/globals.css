@@ -150,3 +150,16 @@ body{background:var(--canvas);color:var(--ink);font-family:Inter,ui-sans-serif,s
 @media(max-width:1050px){.module-work-grid,.patient-work-grid{grid-template-columns:1fr}.module-content{padding:25px 25px}.booking-panel{max-width:none}}
 @media(max-width:760px){.module-content{padding:22px 17px}.module-page-heading{align-items:stretch;flex-direction:column}.branch-picker{width:100%}.workspace-topbar{padding:0 17px}}
 @media(max-width:520px){.module-panel{padding:16px}.module-page-heading h1{font-size:23px}.patient-toolbar{align-items:stretch;flex-direction:column}.branch-picker{grid-template-columns:1fr}.branch-color-tag{justify-self:start}}
+
+/* Layout overflow fix: reserve sidebar width instead of letting main content extend underneath it */
+.workspace-main{width:calc(100% - 264px);min-width:0;margin-left:264px;overflow-x:hidden}
+.workspace-main>*{min-width:0}
+.module-content{width:100%;max-width:1450px;min-width:0;margin:0 auto;padding-left:clamp(18px,3vw,38px);padding-right:clamp(18px,3vw,38px)}
+.module-work-grid{width:100%;min-width:0;grid-template-columns:minmax(285px,340px) minmax(0,1fr)}
+.module-panel{min-width:0;max-width:100%}
+.records-panel{min-width:0;overflow:hidden}
+.table-wrap{max-width:100%;overflow-x:auto}
+.branch-picker{min-width:0}
+.branch-picker select{max-width:100%;overflow:hidden;text-overflow:ellipsis}
+@media(max-width:1100px){.workspace-main{width:calc(100% - 238px);margin-left:238px}.module-work-grid,.patient-work-grid{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:760px){.workspace-main{width:100%;margin-left:0;padding-top:58px}.module-content{padding-left:17px;padding-right:17px}}
