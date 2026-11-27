@@ -17,13 +17,13 @@ export default function OperationsPage(){
  const [loading,setLoading]=useState(true),[saving,setSaving]=useState(false),[error,setError]=useState(""),[notice,setNotice]=useState("");
  const [form,setForm]=useState<Record<string,string>>({});
  const globalAdmin=profile?.role==="owner"||profile?.role==="admin";
- const canUse=!!profile && (globalAdmin || (profile.branch_id===branchId && ["general_manager","doctor","pharmacist","reception","customer_support","order_staff","lab_staff"].includes(profile.role)));
+ const allowed:Record<string,string[]>={pharmacy:["pharmacist","general_manager"],inventory:["pharmacist","general_manager"],lab:["lab_staff","doctor","general_manager"],orders:["order_staff","general_manager"],support:["customer_support","reception","general_manager"],doctor:["doctor","general_manager"],branches:["general_manager","doctor","pharmacist","reception","customer_support","order_staff","lab_staff"],staff:["general_manager"],reports:["general_manager"]};
+ const canUse=!!profile && (globalAdmin || (profile.branch_id===branchId && (allowed[module]||[]).includes(profile.role)));
  useEffect(()=>{if(!titles[module])router.replace("/");},[module,router]);
 
  async function loadData(id:string,mod=module){
   if(!id){setRows([]);setPatients([]);return;}
-  const {data:patientData,error:patientError}=await supabase.from("patients").select("id,full_name,phone").eq("branch_id",id).order("full_name").limit(1000);
-  if(patientError)throw patientError;setPatients((patientData||[]) as Row[]);
+  if(["pharmacy","lab","support","doctor"].includes(mod)){const {data:patientData,error:patientError}=await supabase.from("patients").select("id,full_name,phone").eq("branch_id",id).order("full_name").limit(1000);if(patientError)throw patientError;setPatients((patientData||[]) as Row[]);}else{setPatients([]);}
   let q:any;
   if(mod==="pharmacy") q=supabase.from("prescriptions").select("id,patient_id,status,created_at,patients(full_name,phone),prescription_items(id,medicine_name,dosage,frequency,duration,quantity,instructions)").eq("branch_id",id).order("created_at",{ascending:false}).limit(100);
   else if(mod==="inventory") q=supabase.from("medicines").select("id,name,sku,unit,unit_price,reorder_level,is_active,stock_movements(quantity,movement_type)").eq("branch_id",id).order("name");
