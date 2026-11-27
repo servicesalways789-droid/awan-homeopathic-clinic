@@ -3,6 +3,7 @@
 import { FormEvent, useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
+import AppNav from "@/components/AppNav";
 
 type Branch = { id: string; name: string; address: string };
 type Patient = { id: string; patient_code: string | null; full_name: string; phone: string | null; date_of_birth: string | null; sex: string | null; address: string | null; created_at: string };
@@ -100,7 +101,7 @@ export default function PatientsPage() {
     window.location.href = "/login";
   }
 
-  return <main className="shell">
+  return <><AppNav/><main className="shell">
     <header className="top">
       <div><a className="back-link" href="/">← Dashboard</a><h1>Patients</h1><p className="muted">Awan Homeopathic Clinic · Patient registration and visit records</p></div>
       <button className="secondary-btn" onClick={signOut}>Sign out</button>
@@ -138,5 +139,5 @@ export default function PatientsPage() {
           </tbody></table></div>}
       </section>
     </div>
-  </main>;
+  </main></>;
 }
