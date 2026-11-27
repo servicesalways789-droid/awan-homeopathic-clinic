@@ -47,11 +47,11 @@ export default function AppNav() {
       <div className="sidebar-branch"><span className="branch-avatar">A</span><span><strong>Clinic locations</strong><small>3 registered branches</small></span><span className="branch-chevron">⌄</span></div>
       <div className="sidebar-caption">WORKSPACE</div>
       <nav className="sidebar-links" aria-label="Clinic workspace navigation">
-        {links.slice(0,3).map(item=>{const active=item.href==="/" ? pathname==="/" : pathname.startsWith(item.href!);return <Link key={item.label} href={item.href!} className={`sidebar-link${active?" selected":""}`} aria-current={active?"page":undefined} onClick={()=>setMobileOpen(false)}><Icon name={item.icon}/><span>{item.label}</span>{active&&<i className="active-rail"/>}</Link>;})}
+        {links.slice(0,3).map(item=>{const active=item.href==="/" ? pathname==="/" : pathname.startsWith(item.href!);return <Link key={item.label} href={item.href!} className={`sidebar-link menu-${item.icon}${active?" selected":""}`} aria-current={active?"page":undefined} onClick={()=>setMobileOpen(false)}><Icon name={item.icon}/><span>{item.label}</span>{active&&<i className="active-rail"/>}</Link>;})}
       </nav>
       <div className="sidebar-caption modules-caption">CLINIC OPERATIONS</div>
       <nav className="sidebar-links" aria-label="Clinic modules">
-        {links.slice(3).map(item=><div key={item.label} className="sidebar-link disabled-link" aria-disabled="true" title="This module is not available yet"><Icon name={item.icon}/><span>{item.label}</span><span className="soon-dot"/></div>)}
+        {links.slice(3).map(item=><div key={item.label} className={`sidebar-link disabled-link menu-${item.icon}`} aria-disabled="true" title="This module is not available yet"><Icon name={item.icon}/><span>{item.label}</span><span className="soon-dot"/></div>)}
       </nav>
       <div className="sidebar-bottom"><div className="sidebar-secure"><span className="secure-check">✓</span><span><strong>Secure workspace</strong><small>Staff access only</small></span></div><div className="sidebar-version">HOMEo CLINICS <span>·</span> PKR</div></div>
     </aside>
