@@ -12,7 +12,7 @@ const links = [
   { label: "Pharmacy & Billing", icon: "pharmacy" },
   { label: "Medicine Inventory", icon: "inventory" },
   { label: "Laboratory", icon: "lab" },
-  { label: "Online Orders", icon: "orders" },
+  { label: "E-commerce & Online Orders", href: "/online-orders", icon: "orders", active: true },
   { label: "Customer Support", icon: "support" },
   { label: "Branch Management", icon: "branches" },
   { label: "Staff & Permissions", icon: "staff" },
@@ -51,7 +51,7 @@ export default function AppNav() {
       </nav>
       <div className="sidebar-caption modules-caption">CLINIC OPERATIONS</div>
       <nav className="sidebar-links" aria-label="Clinic modules">
-        {links.slice(3).map(item=><div key={item.label} className={`sidebar-link disabled-link menu-${item.icon}`} aria-disabled="true" title="This module is not available yet"><Icon name={item.icon}/><span>{item.label}</span><span className="soon-dot"/></div>)}
+        {links.slice(3).map(item=>item.href?<Link key={item.label} href={item.href} className={`sidebar-link menu-${item.icon}${pathname.startsWith(item.href)?" selected":""}`} aria-current={pathname.startsWith(item.href)?"page":undefined} onClick={()=>setMobileOpen(false)}><Icon name={item.icon}/><span>{item.label}</span>{pathname.startsWith(item.href)&&<i className="active-rail"/>}</Link>:<div key={item.label} className={`sidebar-link disabled-link menu-${item.icon}`} aria-disabled="true" title="This module is not available yet"><Icon name={item.icon}/><span>{item.label}</span><span className="soon-dot"/></div>)}
       </nav>
       <div className="sidebar-bottom"><div className="sidebar-secure"><span className="secure-check">✓</span><span><strong>Secure workspace</strong><small>Staff access only</small></span></div><div className="sidebar-version">HOMEo CLINICS <span>·</span> PKR</div></div>
     </aside>
